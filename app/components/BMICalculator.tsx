@@ -32,7 +32,12 @@ export default function BMICalculator() {
     setLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || " ";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      
+      if (!apiUrl) {
+        throw new Error("API URL is not configured. Please set NEXT_PUBLIC_API_URL environment variable.");
+      }
+      
       const res = await fetch(`${apiUrl}/api/bmi`, {
         method: "POST",
         headers: {
